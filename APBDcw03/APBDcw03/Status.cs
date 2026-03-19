@@ -5,5 +5,6 @@ public enum Status
     Available,
     Unavailable,
     Reserved,
+    Broken,
     Unknown
 }
