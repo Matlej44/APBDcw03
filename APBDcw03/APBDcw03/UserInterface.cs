@@ -12,4 +12,29 @@ public class UserInterface
     {
         Console.WriteLine("Add Hardware");
     }
+
+    public static void ShowCurrentStock()
+    {
+        Console.WriteLine("Show Current Stock");
+    }
+
+    public static void Borrow()
+    {
+        Console.WriteLine("Borrow");
+    }
+
+    public static void Return()
+    {
+        Console.WriteLine("Return");
+    }
+
+    public static void StatusChange()
+    {
+        Console.WriteLine("Status Change");
+    }
+
+    public static void ShowUserRentals()
+    {
+        Console.WriteLine("Show User Rentals");
+    }
 }

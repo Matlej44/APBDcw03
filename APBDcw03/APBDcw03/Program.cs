@@ -11,7 +11,7 @@ class Program
                           "\t 3. Wyswietlenie listy sprzetu z aktualnym statutem.\n" +
                           "\t 4. Wypozyczenie/Zwrot.\n" +
                           "\t 5. Zmiana statusu Sprzetu\n" +
-                          "\t 6. Wyswietlenie wyporzyczen danego uzytkownika.\n" +
+                          "\t 6. Wyswietlenie wypozyczen danego uzytkownika.\n" +
                           "\t 7. Wyswietlenie listy wyporzyczen danego uzytkownika.\n" +
                           "\t 8. Wygenerowanie krótkiego raportu");
         char chr = Console.ReadKey().KeyChar;
@@ -23,6 +23,20 @@ class Program
                 break;
             case '2':
                 UserInterface.AddHardware();
+                break;
+            case '3':
+                UserInterface.ShowCurrentStock();
+                break;
+            case '4':
+                Console.WriteLine(" 1. Wypożyczanie\n 2. Zwrot");
+                if (Console.ReadKey().KeyChar == '1') UserInterface.Borrow();
+                else if (Console.ReadKey().KeyChar == '2') UserInterface.Return();
+                break;
+            case '5':
+                UserInterface.StatusChange();
+                break;
+            case '6':
+                UserInterface.ShowUserRentals();
                 break;
         }
     }
