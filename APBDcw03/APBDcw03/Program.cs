@@ -4,6 +4,7 @@ class Program
 {
     static void Main(string[] args)
     {
+        Console.Clear();
         Console.WriteLine("Witaj w aplikacji co chciałbyś wykonać.\n" +
                           "\t 1. Dodać nowego użytkownika.\n" +
                           "\t 2. Dodawanie nowego sprzetu.\n" +
@@ -13,5 +14,16 @@ class Program
                           "\t 6. Wyswietlenie wyporzyczen danego uzytkownika.\n" +
                           "\t 7. Wyswietlenie listy wyporzyczen danego uzytkownika.\n" +
                           "\t 8. Wygenerowanie krótkiego raportu");
+        char chr = Console.ReadKey().KeyChar;
+        Console.Clear();
+        switch (chr)
+        {
+            case '1':
+                UserInterface.AddUser();
+                break;
+            case '2':
+                UserInterface.AddHardware();
+                break;
+        }
     }
 }
