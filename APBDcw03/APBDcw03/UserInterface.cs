@@ -10,7 +10,7 @@ public class UserInterface
 
     public static void AddHardware()
     {
-        Console.WriteLine("Add Hardware");
+        Storage.Stock.Add(Console.ReadLine() ?? string.Empty);
     }
 
     public static void ShowCurrentStock()
