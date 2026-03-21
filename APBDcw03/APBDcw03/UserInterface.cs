@@ -5,7 +5,6 @@ public class UserInterface
     public static void AddUser()
     {
         Storage.Users.Add(Console.ReadLine() ?? string.Empty);
-        
     }
 
     public static void AddHardware()
@@ -29,6 +28,9 @@ public class UserInterface
         var item = int.Parse(Console.ReadLine() ?? string.Empty);
         Console.WriteLine("Select date-of-return: ");
         var date = DateTime.Parse(Console.ReadLine() ?? string.Empty);
+        var itemToBorrow = Storage.Stock[item];
+        Storage.Stock.RemoveAt(item);
+        Storage.Borrowed.Add(itemToBorrow);
         
     }
 
