@@ -2,13 +2,16 @@
 
 public class Projector : Hardware
 {
-    public int Resolution { get; set; }
+    public string Resolution { get; set; }
     public int Brightness { get; set; }
 
-    public Projector(int resolution, int brightness, string name, Status status = Status.Unknown) : base(name, status)
+    public Projector(string resolution, int brightness, string name, Status status = Status.Unknown) : base(name, status)
     {
         Resolution = resolution;
         Brightness = brightness;
     }
-    
+    public Projector()
+    {
+        
+    }
 }

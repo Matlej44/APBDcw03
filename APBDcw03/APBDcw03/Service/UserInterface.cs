@@ -1,4 +1,7 @@
-﻿using APBDcw03.Users;
+﻿using System.Reflection;
+using System.Reflection.Metadata;
+using APBDcw03.Hardwares;
+using APBDcw03.Users;
 
 namespace APBDcw03.Service;
 
@@ -12,8 +15,9 @@ public class UserInterface
         var count = 1;
         foreach (var item in Enum.GetNames(typeof(UserType)))
         {
-            Console.WriteLine($"\t{count++}."+item);
+            Console.WriteLine($"\t{count++}." + item);
         }
+
         var userType = int.Parse(Console.ReadLine() ?? string.Empty);
         var type = (UserType)userType;
         if (user == null) return;
@@ -26,14 +30,53 @@ public class UserInterface
 
     public static void AddHardware()
     {
-        Storage.Stock.Add(Console.ReadLine() ?? string.Empty);
+        var reader = new StreamReader(File.OpenRead("../../../Hardwares/hardwareItems.txt"));
+        List<string> list = [];
+        while (reader.ReadLine() is { } line)
+        {
+            list.Add(line);
+        }
+
+        reader.Close();
+        Console.WriteLine("Select hardware type: ");
+        for (int i = 0; i < list.Count; i++)
+        {
+            Console.WriteLine(i + ". " + list[i]);
+        }
+
+        var type = int.Parse(Console.ReadLine() ?? string.Empty);
+        var hardware = list[type];
+        var mytype = Type.GetType("APBDcw03.Hardwares." + hardware);
+        Hardware newHardware = (Hardware)Activator.CreateInstance(mytype);
+        foreach (var item in newHardware.GetType().GetProperties())
+        {
+            if (item.Name == "Id")
+            {
+                item.SetValue(newHardware, Guid.NewGuid());
+                continue;
+            }
+
+            if (item.PropertyType == typeof(Status))
+            {
+                item.SetValue(newHardware, Status.Available);
+                continue;
+            }
+            Console.WriteLine($"Enter {item.Name}: ");
+            var value = Console.ReadLine();
+            var converted = Convert.ChangeType(value, item.PropertyType);
+            item.SetValue(newHardware, converted);
+        }
+        Storage.Stock.Add(newHardware);
+        
+        Console.WriteLine("Hardware added. Press any key to continue");
+        Console.ReadKey();
     }
 
     public static void ShowCurrentStock()
     {
         for (var i = 0; i < Storage.Stock.Count; i++)
         {
-            Console.WriteLine(i+". "+Storage.Stock[i]);
+            Console.WriteLine(i + ". " + Storage.Stock[i]);
         }
     }
 
@@ -47,21 +90,19 @@ public class UserInterface
         var date = DateTime.Parse(Console.ReadLine() ?? string.Empty);
         var itemToBorrow = Storage.Stock[item];
         Storage.Stock.RemoveAt(item);
-        Storage.Borrowed.Add(itemToBorrow);
-        
     }
 
     public static void Return()
     {
         for (var i = 0; i < Storage.Borrowed.Count; i++)
         {
-            Console.WriteLine(i+". "+Storage.Borrowed[i]);
+            Console.WriteLine(i + ". " + Storage.Borrowed[i]);
         }
+
         Console.WriteLine("Select item: ");
         var item = int.Parse(Console.ReadLine() ?? string.Empty);
         var date = DateTime.Now;
         var fees = 0.75;
-        
     }
 
     public static void StatusChange()
@@ -78,6 +119,7 @@ public class UserInterface
     {
         Console.WriteLine("Show User Rentals");
     }
+
     public static void GenerateReport()
     {
         Console.WriteLine("Generate Report");

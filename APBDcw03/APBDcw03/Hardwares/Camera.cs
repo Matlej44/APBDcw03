@@ -10,5 +10,9 @@ public class Camera : Hardware
         Lens = lens;
         MegaPixels = megaPixels;
     }
+    public Camera()
+    {
+        
+    }
     
 }
