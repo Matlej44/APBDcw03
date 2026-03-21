@@ -36,7 +36,15 @@ public class UserInterface
 
     public static void Return()
     {
-        Console.WriteLine("Return");
+        for (var i = 0; i < Storage.Borrowed.Count; i++)
+        {
+            Console.WriteLine(i+". "+Storage.Borrowed[i]);
+        }
+        Console.WriteLine("Select item: ");
+        var item = int.Parse(Console.ReadLine() ?? string.Empty);
+        var date = DateTime.Now;
+        var fees = 0.75;
+        
     }
 
     public static void StatusChange()
