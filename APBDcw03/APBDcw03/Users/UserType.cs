@@ -2,6 +2,6 @@
 
 public enum UserType
 {
-    Student, Employee
+    Student=1, Employee=2
     
 }
