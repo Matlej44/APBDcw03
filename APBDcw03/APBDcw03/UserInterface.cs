@@ -15,7 +15,7 @@ public class UserInterface
 
     public static void ShowCurrentStock()
     {
-        for (int i = 0; i < Storage.Stock.Count; i++)
+        for (var i = 0; i < Storage.Stock.Count; i++)
         {
             Console.WriteLine(i+". "+Storage.Stock[i]);
         }
@@ -26,7 +26,9 @@ public class UserInterface
         //Borrowing will first display the current stock and will allow user to select some items from stock
         ShowCurrentStock();
         Console.WriteLine("Select item: ");
-        int item = int.Parse(Console.ReadLine());
+        var item = int.Parse(Console.ReadLine() ?? string.Empty);
+        Console.WriteLine("Select date-of-return: ");
+        var date = DateTime.Parse(Console.ReadLine() ?? string.Empty);
         
     }
 
