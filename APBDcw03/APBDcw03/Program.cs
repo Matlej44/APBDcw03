@@ -16,6 +16,7 @@ class Program
         Storage.Users.Add(new User(10, "Jan","Kowalski", UserType.Student));
         Storage.Users.Add(new User(11, "Anna","Nowak", UserType.Employee));
         Storage.Borrowed.Add(new RentalService(Storage.Users[0], new Laptop(16, "Intel Core i5", "Laptop 2" ), DateTime.Now, DateTime.Now.AddDays(1)));
+        Storage.Borrowed.Add(new RentalService(Storage.Users[1], new Projector("1920x1080", 50, "Projektor 2" ), DateTime.Now, DateTime.Now.AddDays(-1)));
         while (true)
         {
             Console.Clear();
@@ -44,17 +45,17 @@ class Program
                     break;
                 case '4':
                     Console.WriteLine(" 1. Wypożyczanie\n 2. Zwrot");
-                    if (Console.ReadKey().KeyChar == '1') FunctionService.Borrow();
-                    else if (Console.ReadKey().KeyChar == '2') FunctionService.Return();
+                    if (Console.ReadKey().KeyChar == '1') RentalService.Borrow();
+                    else if (Console.ReadKey().KeyChar == '2') RentalService.Return();
                     break;
                 case '5':
                     FunctionService.StatusChange();
                     break;
                 case '6':
-                    FunctionService.ShowActiveUserRentals();
+                    RentalService.ShowActiveUserRentals();
                     break;
                 case '7':
-                    FunctionService.ShowOutOfDateRentals();
+                    RentalService.ShowOutOfDateRentals();
                     break;
                 case '8':
                     FunctionService.GenerateReport();
