@@ -13,4 +13,9 @@ public abstract class Hardware
         this.Name = name;
         this.Status = status;
     }
+    public void RepairHardware()
+    {
+        Status = Status.Available;
+    }
+    
 }
