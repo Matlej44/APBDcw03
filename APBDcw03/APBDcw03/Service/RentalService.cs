@@ -1,6 +1,6 @@
 ﻿namespace APBDcw03;
 
-public class Rental
+public class RentalService
 {
     
 }
