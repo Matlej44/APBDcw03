@@ -15,12 +15,19 @@ public class UserInterface
 
     public static void ShowCurrentStock()
     {
-        Console.WriteLine("Show Current Stock");
+        for (int i = 0; i < Storage.Stock.Count; i++)
+        {
+            Console.WriteLine(i+". "+Storage.Stock[i]);
+        }
     }
 
     public static void Borrow()
     {
-        Console.WriteLine("Borrow");
+        //Borrowing will first display the current stock and will allow user to select some items from stock
+        ShowCurrentStock();
+        Console.WriteLine("Select item: ");
+        int item = int.Parse(Console.ReadLine());
+        
     }
 
     public static void Return()
