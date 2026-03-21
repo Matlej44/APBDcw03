@@ -1,4 +1,4 @@
-﻿namespace APBDcw03;
+﻿namespace APBDcw03.Service;
 
 public class UserInterface
 {
@@ -52,8 +52,17 @@ public class UserInterface
         Console.WriteLine("Status Change");
     }
 
+    public static void ShowActiveUserRentals()
+    {
+        Console.WriteLine("Show Active User Rentals");
+    }
+
     public static void ShowUserRentals()
     {
         Console.WriteLine("Show User Rentals");
+    }
+    public static void GenerateReport()
+    {
+        Console.WriteLine("Generate Report");
     }
 }

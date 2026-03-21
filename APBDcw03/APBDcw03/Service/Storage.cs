@@ -1,4 +1,4 @@
-﻿namespace APBDcw03;
+﻿namespace APBDcw03.Service;
 
 public static class Storage
 {
