@@ -4,8 +4,8 @@ public class UserInterface
 {
     public static void AddUser()
     {
-
-        Console.WriteLine("Add User");
+        Storage.Users.Add(Console.ReadLine() ?? string.Empty);
+        
     }
 
     public static void AddHardware()
