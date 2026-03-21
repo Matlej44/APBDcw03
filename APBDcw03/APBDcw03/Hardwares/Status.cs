@@ -1,4 +1,4 @@
-﻿namespace APBDcw03;
+﻿namespace APBDcw03.Hardwares;
 
 public enum Status
 {
