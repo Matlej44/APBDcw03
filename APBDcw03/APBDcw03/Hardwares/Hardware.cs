@@ -22,5 +22,9 @@ public abstract class Hardware
     {
         Status = Status.Available;
     }
-    
+
+    public override string ToString()
+    {
+        return "Name: " + Name + " Status: " + Status + "";
+    }
 }

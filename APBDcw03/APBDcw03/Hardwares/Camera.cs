@@ -14,5 +14,9 @@ public class Camera : Hardware
     {
         
     }
+    public override string ToString()
+    {
+        return base.ToString() + " Lens: " + Lens + " MegaPixels: " + MegaPixels + "";
+    }
     
 }

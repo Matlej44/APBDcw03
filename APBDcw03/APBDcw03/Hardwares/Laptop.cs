@@ -15,4 +15,9 @@ public class Laptop : Hardware
     {
         
     }
+
+    public override string ToString()
+    {
+        return base.ToString()+" Ram: " + Ram + " Cpu: " + Cpu + "";
+    }
 }

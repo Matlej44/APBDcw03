@@ -14,4 +14,8 @@ public class Projector : Hardware
     {
         
     }
+    public override string ToString()
+    {
+        return base.ToString() + " Resolution: " + Resolution + " Brightness: " + Brightness + "";
+    }
 }
