@@ -61,13 +61,15 @@ public class UserInterface
                 item.SetValue(newHardware, Status.Available);
                 continue;
             }
+
             Console.WriteLine($"Enter {item.Name}: ");
             var value = Console.ReadLine();
             var converted = Convert.ChangeType(value, item.PropertyType);
             item.SetValue(newHardware, converted);
         }
+
         Storage.Stock.Add(newHardware);
-        
+
         Console.WriteLine("Hardware added. Press any key to continue");
         Console.ReadKey();
     }
@@ -78,6 +80,10 @@ public class UserInterface
         {
             Console.WriteLine(i + ". " + Storage.Stock[i]);
         }
+
+        if (Storage.Stock.Count == 0) Console.WriteLine("No items in stock");
+        Console.WriteLine("Press any key to continue");
+        Console.ReadKey();
     }
 
     public static void Borrow()
@@ -89,7 +95,20 @@ public class UserInterface
         Console.WriteLine("Select date-of-return: ");
         var date = DateTime.Parse(Console.ReadLine() ?? string.Empty);
         var itemToBorrow = Storage.Stock[item];
+        Console.WriteLine("Input your user id: ");
+        var id = int.Parse(Console.ReadLine() ?? string.Empty);
+        var user = Storage.Users.Find(x => x.Id == id);
+        if (user == null)
+        {
+            Console.WriteLine("User not found");
+            return;
+        }
         Storage.Stock.RemoveAt(item);
+        itemToBorrow.Status = Status.Unavailable;
+        RentalService rental = new(user, itemToBorrow, DateTime.Now, date);
+        Storage.Borrowed.Add(rental);
+        Console.WriteLine("Item Borrowed. Press any key to continue");
+        Console.ReadKey();
     }
 
     public static void Return()

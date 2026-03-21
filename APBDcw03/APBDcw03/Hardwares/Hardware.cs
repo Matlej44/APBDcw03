@@ -27,4 +27,5 @@ public abstract class Hardware
     {
         return "Name: " + Name + " Status: " + Status + "";
     }
+    
 }

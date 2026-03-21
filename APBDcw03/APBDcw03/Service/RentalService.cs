@@ -11,6 +11,8 @@ public class RentalService
     public DateTime DateTo { get; set; }
     public DateTime? ReturnDate { get; set; }
 
+    public double Fee = 0.75;
+
     public RentalService(User user, Hardware hardware, DateTime dateFrom, DateTime dateTo)
     {
         User = user;
@@ -21,5 +23,9 @@ public class RentalService
     public void Return()
     {
         ReturnDate = DateTime.Now;
+    }
+    public void Rent()
+    {
+        DateFrom = DateTime.Now;
     }
 }

@@ -7,5 +7,5 @@ public static class Storage
 {
     public static List<Hardware> Stock = [];
     public static List<User> Users = [];
-    public static List<string> Borrowed = [];
+    public static List<RentalService> Borrowed = [];
 }
