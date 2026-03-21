@@ -5,12 +5,13 @@ using APBDcw03.Users;
 
 namespace APBDcw03.Service;
 
-public class UserInterface
+public static class FunctionService
 {
     public static void AddUser()
     {
         Console.WriteLine("Type your user(name,surname): ");
         var user = Console.ReadLine()?.Split(",");
+        if(user.Length<2) return;
         Console.WriteLine("Select your user type: ");
         var count = 1;
         foreach (var item in Enum.GetNames(typeof(UserType)))
@@ -88,6 +89,7 @@ public class UserInterface
 
     public static void Borrow()
     {
+        Console.WriteLine();
         //Borrowing will first display the current stock and will allow user to select some items from stock
         ShowCurrentStock();
         Console.WriteLine("Select item: ");
@@ -131,10 +133,26 @@ public class UserInterface
 
     public static void ShowActiveUserRentals()
     {
-        Console.WriteLine("Show Active User Rentals");
+        Console.WriteLine("Input user id:");
+        var id = int.Parse(Console.ReadLine() ?? string.Empty);
+        User user = Storage.Users.Find(x => x.Id == id);
+        if (user == null)
+        {
+            Console.WriteLine("User not found");
+            return;
+        }
+        List<RentalService> rentals = Storage.Borrowed.FindAll(x => x.User == user);
+        foreach (var item in rentals)
+        {
+            Console.WriteLine(item);
+        }
+        if (rentals.Count == 0) Console.WriteLine("User has no rentals");
+        Console.WriteLine("Press any key to continue");
+        Console.ReadKey();
+        
     }
 
-    public static void ShowUserRentals()
+    public static void ShowOutOfDateRentals()
     {
         Console.WriteLine("Show User Rentals");
     }

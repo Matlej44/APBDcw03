@@ -28,4 +28,9 @@ public class RentalService
     {
         DateFrom = DateTime.Now;
     }
+
+    public override string ToString()
+    {
+        return Hardware.Name + " " + DateFrom + " " + DateTo+" "+ReturnDate;
+    }
 }

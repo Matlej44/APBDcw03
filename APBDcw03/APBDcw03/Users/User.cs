@@ -17,6 +17,14 @@ public class User
         this.type = type;
     }
 
+    public User(int id, string name, string surname, UserType type)
+    {
+        Id = id;
+        Name = name;
+        Surname = surname;
+        this.type = type;
+    }
+
     private int GenerateId()
     {
         bool isIdUnique = false;
