@@ -1,4 +1,4 @@
-﻿namespace APBDcw03;
+﻿namespace APBDcw03.Hardwares;
 
 public abstract class Hardware
 {
@@ -6,8 +6,8 @@ public abstract class Hardware
     public string Name { get; set; }
     public Status Status { get; set; }
 
-    
-    public Hardware(string name,  Status status=Status.Unknown)
+
+    protected Hardware(string name,  Status status=Status.Unknown)
     {
         this.Id =  Guid.NewGuid();
         this.Name = name;
