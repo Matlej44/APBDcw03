@@ -109,6 +109,10 @@ public static class FunctionService
     }
     public static void GenerateReport()
     {
-        Console.WriteLine("Generate Report");
+        Console.WriteLine($"We have {Storage.Stock.Count} items in stock and {Storage.Borrowed.Count} items borrowed. Which meand that we have {Math.Round(100.0*Storage.Borrowed.Count/(Storage.Stock.Count+Storage.Borrowed.Count), 2)} % od our items are borrowed.\n" +
+                          $"{Storage.Borrowed.FindAll(x => x.DateTo<DateTime.Now).Count} rentals are late on returns. \n" +
+                          $"Our Service is used by {Storage.Users.Count} users. Where {Storage.Users.FindAll(x=> x.type == UserType.Student).Count} are students and {Storage.Users.FindAll(x=> x.type == UserType.Employee).Count} are employees.\n" +
+                          $"Press any key to continue");
+        Console.ReadKey();
     }
 }
