@@ -129,8 +129,9 @@ public class RentalService
         if (rentalToReturn.ReturnDate > rentalToReturn.DateTo)
         {
             var diff = rentalToReturn.ReturnDate.Value.Subtract(rentalToReturn.DateTo).Days;
-            Console.WriteLine($"Rental is overdue. The fee is {diff * rentalToReturn.Fee} PLN.");
-            Console.ReadKey();
+            Console.WriteLine($"Rental is overdue. The fee is {diff * rentalToReturn.Fee} PLN. Press y to pay or any other key to continue");
+            if (Console.ReadKey().Key != ConsoleKey.Y)
+                return;
         }
         Storage.Stock.Add(rentalToReturn.Hardware);
         rentalToReturn.Hardware.Status = Status.Available;
