@@ -89,7 +89,23 @@ public static class FunctionService
 
     public static void StatusChange()
     {
-        Console.WriteLine("Status Change");
+        ShowCurrentStock();
+        Console.WriteLine("Select item: ");
+        var item = int.Parse(Console.ReadLine() ?? string.Empty);
+        var hardware = Storage.Stock[item];
+        Console.WriteLine("Select new status: ");
+        if (Enum.TryParse(Console.ReadLine() ?? string.Empty, out Status status))
+        {
+            hardware.Status = status;
+            Console.WriteLine("Status changed");
+        }
+        else
+        {
+            Console.WriteLine("Invalid status");
+        }
+        Console.WriteLine("Press any key to continue");
+        Console.ReadKey();
+        
     }
     public static void GenerateReport()
     {

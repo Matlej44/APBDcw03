@@ -39,7 +39,8 @@ public class RentalService
         User user = Storage.Users.Find(x => x.Id == id);
         if (user == null)
         {
-            Console.WriteLine("User not found");
+            Console.WriteLine("User not found. Press any key to continue");
+            Console.ReadKey();
             return;
         }
         List<RentalService> rentals = Storage.Borrowed.FindAll(x => x.User == user);
@@ -53,7 +54,14 @@ public class RentalService
     }
     public static void ShowOutOfDateRentals()
     {
-        List<RentalService> rentals = Storage.Borrowed.FindAll(x => x.ReturnDate < DateTime.Now);
+        List<RentalService> rentals = Storage.Borrowed.FindAll(x => x.DateTo < DateTime.Now);
+        foreach (var item in rentals)
+        {
+            Console.WriteLine(item);
+        }
+        if (rentals.Count == 0) Console.WriteLine("No rentals out of date");
+        Console.WriteLine("Press any key to continue");
+        Console.ReadKey();
     }
     public static void Borrow()
     {
@@ -65,14 +73,29 @@ public class RentalService
         Console.WriteLine("Select date-of-return: ");
         var date = DateTime.Parse(Console.ReadLine() ?? string.Empty);
         var itemToBorrow = Storage.Stock[item];
+        if (itemToBorrow.Status != Status.Available)
+        {
+            Console.WriteLine("Item is not available. Press any key to continue");
+            Console.ReadKey();
+            return;
+        }
         Console.WriteLine("Input your user id: ");
         var id = int.Parse(Console.ReadLine() ?? string.Empty);
         var user = Storage.Users.Find(x => x.Id == id);
         if (user == null)
         {
-            Console.WriteLine("User not found");
+            Console.WriteLine("User not found. Press any key to continue");
+            Console.ReadKey();
             return;
         }
+        List<RentalService> rentals = Storage.Borrowed.FindAll(x => x.User == user);
+        if (user.type == UserType.Student && rentals.Count >= 2 || user.type == UserType.Employee && rentals.Count >= 5)
+        {
+            Console.WriteLine("You have reached the limit of borrowed items. Press any key to continue");
+            Console.ReadKey();
+            return;
+        }
+
         Storage.Stock.RemoveAt(item);
         itemToBorrow.Status = Status.Unavailable;
         RentalService rental = new(user, itemToBorrow, DateTime.Now, date);
@@ -82,14 +105,38 @@ public class RentalService
     }
     public static void Return()
     {
-        for (var i = 0; i < Storage.Borrowed.Count; i++)
+        Console.WriteLine();
+        Console.WriteLine("Input user id:");
+        var id = int.Parse(Console.ReadLine() ?? string.Empty);
+        var user = Storage.Users.Find(x => x.Id == id);
+        if (user == null)
         {
-            Console.WriteLine(i + ". " + Storage.Borrowed[i]);
+            Console.WriteLine("User not found. Press any key to continue");
+            Console.ReadKey();
+            return;
         }
-
-        Console.WriteLine("Select item: ");
-        var item = int.Parse(Console.ReadLine() ?? string.Empty);
-        var date = DateTime.Now;
-        var fees = 0.75;
+        var rentals = Storage.Borrowed.FindAll(x => x.User == user);
+        var i = 0;
+        foreach (var item in rentals)
+        {
+            Console.WriteLine(i+". "+item);
+        }
+        if (rentals.Count == 0) Console.WriteLine("User has no rentals");
+        Console.WriteLine("Select rental: ");
+        var rental = int.Parse(Console.ReadLine() ?? string.Empty);
+        var rentalToReturn = rentals[rental];
+        rentalToReturn.ReturnDate = DateTime.Now;
+        if (rentalToReturn.ReturnDate > rentalToReturn.DateTo)
+        {
+            var diff = rentalToReturn.ReturnDate.Value.Subtract(rentalToReturn.DateTo).Days;
+            Console.WriteLine($"Rental is overdue. The fee is {diff * rentalToReturn.Fee} PLN.");
+            Console.ReadKey();
+        }
+        Storage.Stock.Add(rentalToReturn.Hardware);
+        rentalToReturn.Hardware.Status = Status.Available;
+        Storage.Borrowed.RemoveAt(rental);
+        Console.WriteLine("Item returned. Press any key to continue");
+        Console.ReadKey();
+        
     }
 }

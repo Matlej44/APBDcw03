@@ -9,9 +9,9 @@ class Program
     static void Main(string[] args)
     {
         //Initilize with some data for testing purposes
-        Storage.Stock.Add(new Laptop(16, "Intel Core i5", "Laptop 1" ));
+        Storage.Stock.Add(new Laptop(16, "Intel Core i5", "Laptop 1", Status.Available));
         Storage.Stock.Add(new Camera("18-55mm", 16, "Kamera 1"));
-        Storage.Stock.Add(new Camera("18-70mm", 32, "Kamera 2"));
+        Storage.Stock.Add(new Camera("18-70mm", 32, "Kamera 2", Status.Available));
         Storage.Stock.Add(new Projector("1920x1080", 50, "Projektor 1"));
         Storage.Users.Add(new User(10, "Jan","Kowalski", UserType.Student));
         Storage.Users.Add(new User(11, "Anna","Nowak", UserType.Employee));
@@ -45,8 +45,16 @@ class Program
                     break;
                 case '4':
                     Console.WriteLine(" 1. Wypożyczanie\n 2. Zwrot");
-                    if (Console.ReadKey().KeyChar == '1') RentalService.Borrow();
-                    else if (Console.ReadKey().KeyChar == '2') RentalService.Return();
+                    var key = Console.ReadKey().KeyChar;
+                    switch (key)
+                    {
+                        case '1':
+                            RentalService.Borrow();
+                            break;
+                        case '2':
+                            RentalService.Return();
+                            break;
+                    }
                     break;
                 case '5':
                     FunctionService.StatusChange();
