@@ -32,9 +32,9 @@ APBDcw03/
 └── Program.cs              # Main menu and starting point of a function
 ```
 
-## Funkcjonalności
+## Functions
  
-| # | Funkcja |
+| # | Function |
 |---|---------|
 | 1 | Adding new user(Student / Employee) |
 | 2 | Adding new hardware (Laptop, Projector, Camera) |
